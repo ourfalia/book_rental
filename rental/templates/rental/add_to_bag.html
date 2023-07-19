@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Add to Bag</h1>
+    <p>Book: {{ book.title }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" value="1" min="1" required>
+        <button type="submit" class="btn btn-primary">Add to Bag</button>
+    </form>
+{% endblock %}

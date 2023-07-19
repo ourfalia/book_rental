@@ -36,6 +36,21 @@ def reserve_book(request, pk):
 
 
 @login_required
+def add_to_bag(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    user = request.user
+
+    if request.method == 'POST':
+        quantity = int(request.POST['quantity'])
+        cart_item, created = CartItem.objects.get_or_create(user=user, book=book)
+        cart_item.quantity += quantity
+        cart_item.save()
+        return redirect('view_bag')
+
+    return render(request, 'rental/add_to_bag.html', {'book': book})
+
+
+@login_required
 def checkout(request):
     user = request.user
     reservations = Reservation.objects.filter(user=user, is_checked_out=False)
