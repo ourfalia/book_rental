@@ -7,5 +7,5 @@
         <img src="{{ book.image.url }}" alt="{{ book.title }}" class="img-fluid">
     {% endif %}
    
-    <a class="btn btn-primary" href="#">Reserve Book</a>
+    <a class="btn btn-primary" href="{% url 'reserve_book' pk=book.pk %}">Reserve Book</a>
 {% endblock %}
