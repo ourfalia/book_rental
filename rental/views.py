@@ -61,23 +61,29 @@ def view_bag(request):
 @login_required
 def checkout(request):
     user = request.user
-    reservations = Reservation.objects.filter(user=user, is_checked_out=False)
-    total_price = 0
-
-    for reservation in reservations:
-        num_days = (reservation.end_date - reservation.start_date).days + 1
-        reservation.price = num_days * 2  
-        total_price += reservation.price
+    cart_items = CartItem.objects.filter(user=user)
+    total_price = cart_items.aggregate(total=Sum('book__price'))['total'] or 0
 
     if request.method == 'POST':
-        for reservation in reservations:
-            reservation.is_checked_out = True
+        for cart_item in cart_items:
+            book = cart_item.book
+            quantity = cart_item.quantity
+            start_date = timezone.now()
+            end_date = start_date + timedelta(days=quantity - 1)
+            reservation = Reservation.objects.create(book=book, user=user, start_date=start_date, end_date=end_date)
+            reservation.price = quantity * 3
+            reservation.is_checked_out = True  
+
             reservation.save()
+
+        cart_items.delete()
 
         return redirect('checkout_success')
 
-    return render(request, 'rental/checkout.html', {'reservations': reservations, 'total_price': total_price})
+    return render(request, 'checkout.html', {'cart_items': cart_items, 'total_price': total_price})
 
 @login_required
 def checkout_success(request):
     return render(request, 'rental/checkout_success.html')
+
+   
