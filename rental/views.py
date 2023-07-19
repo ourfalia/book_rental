@@ -33,3 +33,28 @@ def reserve_book(request, pk):
         return redirect('book_detail', pk=book.pk)
 
     return render(request, 'rental/book_reserve.html', {'book': book})
+
+
+@login_required
+def checkout(request):
+    user = request.user
+    reservations = Reservation.objects.filter(user=user, is_checked_out=False)
+    total_price = 0
+
+    for reservation in reservations:
+        num_days = (reservation.end_date - reservation.start_date).days + 1
+        reservation.price = num_days * 2  
+        total_price += reservation.price
+
+    if request.method == 'POST':
+        for reservation in reservations:
+            reservation.is_checked_out = True
+            reservation.save()
+
+        return redirect('checkout_success')
+
+    return render(request, 'rental/checkout.html', {'reservations': reservations, 'total_price': total_price})
+
+@login_required
+def checkout_success(request):
+    return render(request, 'rental/checkout_success.html')
