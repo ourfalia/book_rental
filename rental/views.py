@@ -51,6 +51,14 @@ def add_to_bag(request, pk):
 
 
 @login_required
+def view_bag(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(user=user)
+    total_price = cart_items.aggregate(total=Sum('book__price'))['total'] or 0
+    return render(request, 'rental/view_bag.html', {'cart_items': cart_items, 'total_price': total_price})
+
+
+@login_required
 def checkout(request):
     user = request.user
     reservations = Reservation.objects.filter(user=user, is_checked_out=False)
