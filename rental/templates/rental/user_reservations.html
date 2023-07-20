@@ -14,5 +14,6 @@
         {% endfor %}
     </ul>
     <p>Total Price: ${{ total_price }}</p>
+    <a class="btn btn-primary" href="{% url 'all_reservations' %}">View All Reservations</a> 
     <a class="btn btn-primary" href="{% url 'checkout' %}">Checkout and Pay</a>
 {% endblock %}

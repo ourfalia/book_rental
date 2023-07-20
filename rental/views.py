@@ -19,9 +19,17 @@ def book_detail(request, pk):
 
 
 @login_required
-def user_reservations(request):
+def all_reservations(request):
     user = request.user
     reservations = Reservation.objects.filter(user=user)
+
+    return render(request, 'rental/all_reservations.html', {'reservations': reservations})
+
+
+@login_required
+def user_reservations(request):
+    user = request.user
+    reservations = Reservation.objects.filter(user=user, is_checked_out=False)
 
     total_price = 0
     for reservation in reservations:
