@@ -50,6 +50,34 @@ def reserve_book(request, pk):
 
     return render(request, 'rental/book_reserve.html', {'book': book})
 
+@login_required
+def edit_reservation(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
+
+    if request.method == 'POST':
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+
+        reservation.start_date = start_date
+        reservation.end_date = end_date
+        reservation.save()
+
+        return redirect('user_reservations') 
+
+    return render(request, 'rental/edit_reservation.html', {'reservation': reservation})
+
+
+@login_required
+def cancel_reservation(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
+
+    if request.method == 'POST':
+        reservation.delete()  
+
+        return redirect('user_reservations')  
+
+    return render(request, 'rental/cancel_reservation.html', {'reservation': reservation})
+
 
 
 @login_required

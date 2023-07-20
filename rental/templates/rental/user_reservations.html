@@ -6,6 +6,8 @@
             <li class="list-group-item">
                 {{ reservation.book.title }} - {{ reservation.start_date }} to {{ reservation.end_date }}
                 - ${{ reservation.price }}
+                <a href="{% url 'edit_reservation' reservation.pk %}" class="btn btn-primary btn-sm ml-2">Edit</a>
+                <a href="{% url 'cancel_reservation' reservation.pk %}" class="btn btn-danger btn-sm ml-2">Cancel</a>
             </li>
         {% empty %}
             <li class="list-group-item">You have no reservations.</li>
