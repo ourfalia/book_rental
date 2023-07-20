@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Your Reservations</h1>
+    <ul class="list-group">
+        {% for reservation in reservations %}
+            <li class="list-group-item">
+                {{ reservation.book.title }} - {{ reservation.start_date }} to {{ reservation.end_date }}
+                - ${{ reservation.price }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">You have no reservations.</li>
+        {% endfor %}
+    </ul>
+    <p>Total Price: ${{ total_price }}</p>
+    <a class="btn btn-primary" href="{% url 'checkout' %}">Checkout and Pay</a>
+{% endblock %}
