@@ -19,6 +19,16 @@ def book_detail(request, pk):
 
 
 @login_required
+def book_search(request):
+    query = request.GET.get('q')
+    if query:
+        books = Book.objects.filter(title__icontains=query)
+    else:
+        books = Book.objects.all()
+    return render(request, 'rental/book_list.html', {'books': books})
+
+
+@login_required
 def all_reservations(request):
     user = request.user
     reservations = Reservation.objects.filter(user=user)

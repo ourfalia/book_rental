@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1>Book Search</h1>
+    <form method="GET" action="{% url 'book_search' %}">
+    <input type="text" name="q" placeholder="Search for books">
+    <button type="submit">Search</button>
+    </form>
     <h1>Book List</h1>
     <div class="row">
         {% for book in books %}
@@ -17,6 +22,8 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <li>No books found.</li>
         {% endfor %}
     </div>
 {% endblock %}
