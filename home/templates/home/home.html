@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Welcome to our Book Rental Website!</h1>
+        <p>This is the home page of our book rental service.</p>
+        <p>Feel free to explore our book collection and make reservations.</p>
+        <a href="{% url 'book_list' %}" class="btn btn-primary">View Books</a>
+    </div>
+{% endblock %}
