@@ -12,7 +12,7 @@
                     <a href="{% url 'cancel_reservation' reservation.pk %}" class="btn btn-danger  ml-2 mt-2">Cancel</a>
                 </li><br>
             {% empty %}
-                <li class="list-group-item orange-text">You have no reservations.</li>
+                <li class="list-group-item ">You have no reservations.</li>
             {% endfor %}
         </ul>
         <p class="orange-text">Total Price: ${{ total_price }}</p>
