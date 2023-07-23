@@ -1,0 +1,54 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: url('/media/homepage_background.jpg') no-repeat center center;
+    background-size: cover;
+    height: calc(100vh - 150px);
+    font-family: 'Lato';
+}
+
+.black-bg{
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    width: fit-content;
+    margin: 10px;
+    padding: 10px;
+}
+
+.brown-bg{
+    background-color: rgb(26, 10, 1);
+}
+
+.books-bg{
+    background-color: rgb(0, 0, 0);
+    margin-top: 10%;
+    padding-top: 2%;
+}
+
+.nav-color{
+    background-color: rgb(0, 0, 0);
+}
+
+.orange-color{
+    background-color: rgb(255, 140, 0);
+}
+
+.nav-text,
+.orange-text {
+    color: rgb(255, 140, 0);
+}
+
+.btn:hover{
+    background-color: rgb(252, 82, 3);
+}
+
+.nav-text:hover {
+    color: rgb(252, 82, 3)
+  }
+
+
+.header-container {
+    padding-top: 150px;
+}
